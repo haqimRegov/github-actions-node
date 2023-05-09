@@ -88,7 +88,7 @@ jobs:
     needs: [DeploySIT]
     runs-on: ubuntu-latest
     environment:
-      name: develop
+      name: staging
       url: "http://Staging.Reach.com"
     steps:
       - name: Deploy
@@ -101,7 +101,7 @@ jobs:
     needs: [DeployStaging]
     runs-on: ubuntu-latest
     environment:
-      name: develop
+      name: Pre-production
       url: "http://Pre-prod.Reach.com"
     steps:
       - name: Deploy
@@ -114,7 +114,7 @@ jobs:
     needs: [DeployPre-prodution]
     runs-on: ubuntu-latest
     environment:
-      name: develop
+      name: master
       url: "http://www.Reach.com"
     steps:
       - name: Deploy

@@ -35,6 +35,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
-      
+
+      - name: install dependencies 
+        run: npm install
+
       - name: Run test 
         run: npm test
+        run: echo "test has been executed"

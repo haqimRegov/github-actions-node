@@ -71,7 +71,7 @@ jobs:
 
   DeploySIT:
     name: Deploy to SIT Environment
-    if: github.event.ref == 'refs/heads/main'
+    if: github.event.ref == 'refs/heads/DEV'
     needs: [test]
     runs-on: ubuntu-latest
     environment:
@@ -84,7 +84,7 @@ jobs:
 
   DeployStaging:
     name: Deploy to Staging Environment
-    if: github.event.ref == 'refs/heads/main'
+    if: github.event.ref == 'refs/heads/DEV'
     needs: [DeploySIT]
     runs-on: ubuntu-latest
     environment:
@@ -97,7 +97,7 @@ jobs:
 
   DeployPre-prodution:
     name: Deploy to Pre-prod Environment
-    if: github.event.ref == 'refs/heads/main'
+    if: github.event.ref == 'refs/heads/DEV'
     needs: [DeployStaging]
     runs-on: ubuntu-latest
     environment:
@@ -110,7 +110,7 @@ jobs:
       
   DeployMaster:
     name: Deploy to Master Environment
-    if: github.event.ref == 'refs/heads/main'
+    if: github.event.ref == 'refs/heads/DEV'
     needs: [DeployPre-prodution]
     runs-on: ubuntu-latest
     environment:

@@ -10,7 +10,7 @@ on:
       - DEV
 
 jobs:
-  build-and-test:
+  build:
     runs-on: ubuntu-latest 
 
     steps:
@@ -23,5 +23,9 @@ jobs:
           node-version: 16
       - name: install dependencies 
         run: npm install 
+     
+
+  test: 
+    steps:
       - name: Run test 
-        run: npm test 
+        run: npm test

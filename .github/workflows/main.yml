@@ -101,7 +101,7 @@ jobs:
   DeployMaster:
     name: Deploy to Master Environment
     if: github.event.ref == "refs/heads/main"
-    needs: [DeploySIT]
+    needs: [DeployPre-prodution]
     runs-on: ubuntu-latest
     environment:
       name: develop

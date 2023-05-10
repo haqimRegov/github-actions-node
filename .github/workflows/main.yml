@@ -17,7 +17,7 @@ on:
       - Pre-production
       - DEV
 
-    workflow_dispatch:
+  workflow_dispatch:
 
 jobs:
   build:

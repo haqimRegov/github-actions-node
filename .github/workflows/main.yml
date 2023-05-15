@@ -44,7 +44,7 @@ jobs:
         with:
           fetch-depth: 0  
       - name: Setup Sonarcloud
-        uses: SonarSource/sonarqube-github-action@master
+        uses: sonarsource/sonarqube-scan-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}  
           SONAR_EC2_TOKEN: ${{ secrets.SONAR_EC2_TOKEN }}

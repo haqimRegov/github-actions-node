@@ -51,7 +51,7 @@ jobs:
 
   DeployDev:
     name: Deploy to DEV Environment
-    if: ${{github.event_name == 'pull_request' && succss()}}
+    if: ${{github.event_name == 'pull_request' && success()}}
     needs: [sonarcloud,build-and-test]
     runs-on: ubuntu-latest
     environment:

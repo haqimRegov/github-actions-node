@@ -35,8 +35,8 @@ jobs:
         run: npm test
       - name: Test prompt 
         run: echo "test has been executed"
-      - name: npm run buid 
-        run: npm build
+      - name: npm run build 
+        run: npm run build
       
   sonarcloud:
     name: SonarCloud scan

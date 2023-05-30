@@ -9,6 +9,7 @@ on:
       target_env:
         description: 'Target environment'
         required: true
+        type: choice
         options:
           - 'Sit - TestFlight'
           - 'Sit - Firebase'

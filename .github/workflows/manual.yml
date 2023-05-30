@@ -1,21 +1,18 @@
 name: Deploy Workflow
 
 on:
+  pull_request:
+    types:
+      - opened
   workflow_dispatch:
     inputs:
       target_environment:
         description: 'Target environment'
         required: true
         options:
-          Sit - TestFlight:
-            environment: Sit
-            deployment_platform: TestFlight
-          Sit - Firebase:
-            environment: Sit
-            deployment_platform: Firebase
-          Prod:
-            environment: Prod
-            deployment_platform: ''
+          - 'Sit - TestFlight'
+          - 'Sit - Firebase'
+          - 'Prod'
 
 jobs:
   deploy:

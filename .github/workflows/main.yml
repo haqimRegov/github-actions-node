@@ -18,6 +18,32 @@ on:
       - DEV
 
   workflow_dispatch:
+    inputs:
+      target_env:
+        description: 'Target environment'
+        required: true
+        type: choice
+        options:
+          - 'Sit - TestFlight'
+          - 'Sit - Firebase'
+          - 'Prod'
+          
+      deployment_platform:
+        description: 'Deployment platform'
+        type: choice
+        required: true
+        options:
+          - 'Firebase'
+          - 'TestFlight'
+      credential:
+        description: 'Credential'
+        default: "KIB"
+        type: choice
+        required: false
+        options:
+          - 'Regov'
+          - 'KIB'
+  
 
 jobs:
   build-and-test:

@@ -1,0 +1,45 @@
+name: Deploy Workflow
+
+on:
+  pull_request:
+    types:
+      - opened
+  workflow_dispatch:
+    inputs:
+      target_env:
+        description: 'Target environment'
+        required: true
+        type: choice
+        options:
+          - 'Sit - TestFlight'
+          - 'Sit - Firebase'
+          - 'Prod'
+          
+      deployment_platform:
+        description: 'Deployment platform'
+        required: true
+        options:
+          - 'Firebase'
+          - 'TestFlight'
+      credential:
+        description: 'Credential'
+        required: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to Target Environment
+        if: ${{ github.event.inputs.target_environment == 'Sit - TestFlight' }}
+        run: |
+          # Deployment steps for Sit environment using TestFlight
+
+      - name: Deploy to Target Environment
+        if: ${{ github.event.inputs.target_environment == 'Sit - Firebase' }}
+        run: |
+          # Deployment steps for Sit environment using Firebase
+
+      - name: Deploy to Target Environment
+        if: ${{ github.event.inputs.target_environment == 'Prod' }}
+        run: |
+          # Deployment steps for Prod environment

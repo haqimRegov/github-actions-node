@@ -6,7 +6,7 @@ on:
       - opened
   workflow_dispatch:
     inputs:
-      target_environment:
+      target_env:
         description: 'Target environment'
         required: true
         options:

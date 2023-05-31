@@ -69,7 +69,7 @@ jobs:
 
   DeploySIT:
     name: Deploy to SIT Environment
-    if: github.ref == 'main'
+    if: github.ref == 'Deployment-config-options'
     needs: [build-and-test]
     runs-on: ubuntu-latest
     environment:

@@ -32,7 +32,7 @@ on:
           - 'KIB'
   push:
     branches:
-      - main
+      - DEV
   
 
 jobs:
@@ -96,6 +96,16 @@ jobs:
         if: ${{ github.event.inputs.credential == 'Regov' && github.event.inputs.deployment_platform == 'Firebase'}}
         run: |
           echo "Deploying with ${{ github.event.inputs.credential }} credentials to ${{github.event.inputs.deployment_platform}}"
+          
+      - name: Firebase App Distribution
+        if: ${{ github.event.inputs.credential == 'KIB' && github.event.inputs.deployment_platform == 'Firebase' }}
+        uses: wzieba/Firebase-Distribution-Github-Action@v1.5.0
+        with:
+          appId: ${{ secrets.FIREBASE_APP_ID }}
+          serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
+          groups: Internal ReGov
+          debug: true
+          releaseNotesFile: RELEASENOTES.md
     
       - name: Prompt for TestFlight Deployment- Regov
         if: ${{ github.event.inputs.credential == 'Regov' && github.event.inputs.deployment_platform == 'TestFlight'}}

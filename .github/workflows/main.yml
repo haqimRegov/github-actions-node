@@ -69,7 +69,7 @@ jobs:
 
   DeploySIT:
     name: Deploy to SIT Environment
-    if: github.head_ref == 'main'
+    if: github.ref == 'main'
     needs: [sonarcloud,build-and-test]
     runs-on: ubuntu-latest
     environment:

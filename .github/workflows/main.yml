@@ -98,6 +98,7 @@ jobs:
           echo "Deploying with ${{ github.event.inputs.credential }} credentials to ${{github.event.inputs.deployment_platform}}"
           
       - name: Firebase App Distribution
+        run: echo "GOGO Power rangers" 
         if: ${{ github.event.inputs.credential == 'KIB' && github.event.inputs.deployment_platform == 'Firebase' }}
         uses: wzieba/Firebase-Distribution-Github-Action@v1.5.0
         with:

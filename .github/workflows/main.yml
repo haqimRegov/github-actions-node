@@ -31,6 +31,8 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '16'
+      - name: Readme file reader
+        run: cat readme.txt
       - name: Install dependencies
         run: npm install
       - name: Run test 

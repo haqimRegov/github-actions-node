@@ -82,12 +82,12 @@ jobs:
       name: develop
       url: "http://SIT.Reach.com"
     steps:
-      - name: Prompt for Target Environment
+      - name: Prompt for SIT Environment
         if: ${{ github.event.inputs.environments == 'SIT'}}
         run: |
           echo "Deploying to SIT"
     
-      - name: Prompt for Target Environment
+      - name: Prompt for UAT Environment
         if: ${{ github.event.inputs.environments == 'UAT'}}
         run: |
           echo "Deploying to UAT"

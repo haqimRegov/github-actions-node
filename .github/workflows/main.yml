@@ -64,7 +64,7 @@ jobs:
 
   DeploySIT:
     name: Deploy to SIT Environment
-    if: ${{github.event_name =='workflow_dispatch' && github.head_ref == 'main'}}
+    if: ${{github.event_name =='push' && github.head_ref == 'main'}}
     needs: [build-and-test]
     runs-on: ubuntu-latest
     environment:
@@ -73,6 +73,7 @@ jobs:
     steps:
       - name: Prompt for Target Environment
         id: prompt
+        if: ${{ github.event_name == 'workflow_dispatch' }}
         run: |
           echo "Deployment platform: ${{ github.event.inputs.deployment_platform }}"
           echo "Credential: ${{ github.event.inputs.credential }}"

@@ -3,45 +3,22 @@ name: NodeJS Github Actions
 on:
   workflow_dispatch:
     inputs:
-      target_environment:
-        description: 'Target environment'
-        required: true
-        type: choice
-        options:
-          - 'Sit - TestFlight'
-          - 'Sit - Firebase'
-          - 'Prod'
       deployment_platform:
-        description: 'Deployment platform'
+        description: 'Distribution Channel'
         type: choice
         required: true
         options:
           - 'Firebase'
           - 'TestFlight'
+          - 'App Store'
       credential:
         description: 'Credential'
-        default: "KIB"
+        default: "Regov"
         type: choice
         required: false
         options:
           - 'Regov'
           - 'KIB'
-          
-  push:
-    branches: 
-      - main
-      - develop
-      - staging
-      - Pre-production
-      - DEV
-
-  pull_request: 
-    branches: 
-      - main
-      - develop
-      - staging
-      - Pre-production
-      - DEV
   
 
 jobs:
@@ -64,7 +41,6 @@ jobs:
   sonarcloud:
     name: SonarCloud scan
     runs-on: ubuntu-latest
-    needs: build-and-test
     steps:
       - uses: actions/checkout@v3
         with:
@@ -77,21 +53,24 @@ jobs:
 
   DeployDev:
     name: Deploy to DEV Environment
-    if: github.event_name == 'pull_request'
-    needs: sonarcloud
+    if: github.head_ref == 'DEV'
+    needs: [sonarcloud,build-and-test]
     runs-on: ubuntu-latest
     environment:
       name: DEV
       url: "http://dev.Reach.com"
     steps:
       - name: Deploy
-        run: echo "Deploying to DEV Environment"
-        #This is where the deployment phase should be coded
+        run: |
+          echo "Deploying to DEV Environment"
+          echo "Deployment platform: ${{ github.event.inputs.deployment_platform }}"
+          echo "Credential: ${{ github.event.inputs.credential }}"
+          #This is where the deployment phase should be coded
 
   DeploySIT:
     name: Deploy to SIT Environment
-    if: ${{ github.event.ref == 'workflow_dispatch'}}
-    needs: sonarcloud
+    if: github.head_ref == 'main'
+    needs: [sonarcloud,build-and-test]
     runs-on: ubuntu-latest
     environment:
       name: develop
@@ -100,7 +79,6 @@ jobs:
       - name: Prompt for Target Environment
         id: prompt
         run: |
-          echo "Target environment: ${{ github.event.inputs.target_environment }}"
           echo "Deployment platform: ${{ github.event.inputs.deployment_platform }}"
           echo "Credential: ${{ github.event.inputs.credential }}"
       - name: Deploy
@@ -110,7 +88,7 @@ jobs:
   DeployStaging:
     name: Deploy to Staging Environment
     if: github.event.ref == 'refs/heads/DEV'
-    needs: [DeploySIT]
+    needs: [sonarcloud,build-and-test]
     runs-on: ubuntu-latest
     environment:
       name: staging
@@ -123,7 +101,7 @@ jobs:
   DeployPre-prodution:
     name: Deploy to Pre-prod Environment
     if: github.event.ref == 'refs/heads/DEV'
-    needs: [DeployStaging]
+    needs: [sonarcloud,build-and-test]
     runs-on: ubuntu-latest
     environment:
       name: Pre-production
@@ -136,7 +114,7 @@ jobs:
   DeployMaster:
     name: Deploy to Master Environment
     if: github.event.ref == 'refs/heads/DEV'
-    needs: [DeployPre-prodution]
+    needs: [sonarcloud,build-and-test]
     runs-on: ubuntu-latest
     environment:
       name: master

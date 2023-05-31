@@ -91,7 +91,7 @@ jobs:
 
   DeploySIT:
     name: Deploy to SIT Environment
-    if: ${{ github.event.ref == 'refs/heads/main'}}
+    if: ${{ github.event.ref == 'workflow_dispatch'}}
     needs: sonarcloud
     runs-on: ubuntu-latest
     environment:
@@ -100,7 +100,6 @@ jobs:
     steps:
       - name: Prompt for Target Environment
         id: prompt
-        if: ${{ github.event_name == 'workflow_dispatch' }}
         run: |
           echo "Target environment: ${{ github.event.inputs.target_environment }}"
           echo "Deployment platform: ${{ github.event.inputs.deployment_platform }}"

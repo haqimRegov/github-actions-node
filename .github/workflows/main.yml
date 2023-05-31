@@ -11,7 +11,7 @@ on:
           - 'Firebase'
           - 'TestFlight'
           - 'App Store'
-      env:
+      environments:
         description: 'Environmets'
         default: "SIT"
         type: choice
@@ -83,12 +83,12 @@ jobs:
       url: "http://SIT.Reach.com"
     steps:
       - name: Prompt for Target Environment
-        if: ${{ github.event.inputs.env == 'SIT'}}
+        if: ${{ github.event.inputs.environments == 'SIT'}}
         run: |
           echo "Deploying to SIT"
     
       - name: Prompt for Target Environment
-        if: ${{ github.event.inputs.env == 'UAT'}}
+        if: ${{ github.event.inputs.environments == 'UAT'}}
         run: |
           echo "Deploying to UAT"
       

@@ -38,23 +38,23 @@ jobs:
       - name: Test prompt 
         run: echo "test has been executed"
       
-  sonarcloud:
-    name: SonarCloud scan
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0  
-      - name: Setup Sonarcloud
-        uses: SonarSource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}  
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  # sonarcloud:
+  #   name: SonarCloud scan
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #       with:
+  #         fetch-depth: 0  
+  #     - name: Setup Sonarcloud
+  #       uses: SonarSource/sonarcloud-github-action@master
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}  
+  #         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   DeployDev:
     name: Deploy to DEV Environment
     if: github.head_ref == 'DEV'
-    needs: [sonarcloud,build-and-test]
+    needs: [build-and-test]
     runs-on: ubuntu-latest
     environment:
       name: DEV
@@ -70,7 +70,7 @@ jobs:
   DeploySIT:
     name: Deploy to SIT Environment
     if: github.ref == 'main'
-    needs: [sonarcloud,build-and-test]
+    needs: [build-and-test]
     runs-on: ubuntu-latest
     environment:
       name: develop

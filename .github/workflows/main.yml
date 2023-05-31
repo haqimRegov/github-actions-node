@@ -82,15 +82,15 @@ jobs:
       name: develop
       url: "http://SIT.Reach.com"
     steps:
-      - name: Prompt for SIT Environment
-        if: ${{ github.event.inputs.credential == 'KIB'}}
+      - name: Prompt for Firebase Deployment
+        if: ${{ github.event.inputs.credential == 'KIB' && github.event.inputs.deployment_platform == 'Firebase'}}
         run: |
-          echo "Deploying with KIB credentials"
+          echo "Deploying with ${{ github.event.inputs.credential }} credentials to ${{github.event.inputs.deployment_platform}}"
     
-      - name: Prompt for UAT Environment
-        if: ${{ github.event.inputs.credential == 'Regov'}}
+      - name: Prompt for TestFlight Deployment
+        if: ${{ github.event.inputs.credential == 'KIB' && github.event.inputs.deployment_platform == 'TestFlight'}}
         run: |
-          echo "Deploying with Regov credentials"
+          echo "Deploying with ${{ github.event.inputs.credential }} credentials to ${{github.event.inputs.deployment_platform}}"
       
 
       - name: Deploy

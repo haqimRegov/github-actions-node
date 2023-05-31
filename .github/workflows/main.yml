@@ -1,22 +1,6 @@
-name: NodeJS Github Actions 
+name: NodeJS Github Actions
 
-on: 
-  push:
-    branches: 
-      - main
-      - develop
-      - staging
-      - Pre-production
-      - DEV
-
-  pull_request: 
-    branches: 
-      - main
-      - develop
-      - staging
-      - Pre-production
-      - DEV
-
+on:
   workflow_dispatch:
     inputs:
       target_environment:
@@ -27,7 +11,6 @@ on:
           - 'Sit - TestFlight'
           - 'Sit - Firebase'
           - 'Prod'
-          
       deployment_platform:
         description: 'Deployment platform'
         type: choice
@@ -43,6 +26,22 @@ on:
         options:
           - 'Regov'
           - 'KIB'
+          
+  push:
+    branches: 
+      - main
+      - develop
+      - staging
+      - Pre-production
+      - DEV
+
+  pull_request: 
+    branches: 
+      - main
+      - develop
+      - staging
+      - Pre-production
+      - DEV
   
 
 jobs:

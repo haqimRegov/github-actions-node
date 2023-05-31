@@ -69,6 +69,7 @@ jobs:
 
   DeploySIT:
     name: Deploy to SIT Environment
+    if: github.event_name =='workflow_dispatch'
     needs: [build-and-test]
     runs-on: ubuntu-latest
     environment:

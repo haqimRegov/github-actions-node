@@ -91,13 +91,20 @@ jobs:
 
   DeploySIT:
     name: Deploy to SIT Environment
-    if: ${{ github.event.ref == 'refs/heads/main' && github.event.inputs.target_environment == 'SIT - TestFlight' }}
+    if: ${{ github.event.ref == 'refs/heads/main'}}
     needs: sonarcloud
     runs-on: ubuntu-latest
     environment:
       name: develop
       url: "http://SIT.Reach.com"
     steps:
+      - name: Prompt for Target Environment
+        id: prompt
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        run: |
+          echo "Target environment: ${{ github.event.inputs.target_environment }}"
+          echo "Deployment platform: ${{ github.event.inputs.deployment_platform }}"
+          echo "Credential: ${{ github.event.inputs.credential }}"
       - name: Deploy
         run: echo "Deploying to SIT Environment"
         #This is where the deployment phase should be coded

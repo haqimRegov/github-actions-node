@@ -83,14 +83,14 @@ jobs:
       url: "http://SIT.Reach.com"
     steps:
       - name: Prompt for SIT Environment
-        if: ${{ github.event.inputs.environments == 'SIT'}}
+        if: ${{ github.event.inputs.credential == 'KIB'}}
         run: |
-          echo "Deploying to SIT"
+          echo "Deploying with KIB credentials"
     
       - name: Prompt for UAT Environment
-        if: ${{ github.event.inputs.environments == 'UAT'}}
+        if: ${{ github.event.inputs.credential == 'Regov'}}
         run: |
-          echo "Deploying to UAT"
+          echo "Deploying with Regov credentials"
       
 
       - name: Deploy

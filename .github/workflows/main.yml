@@ -36,7 +36,7 @@ jobs:
       - name: Run test 
         run: npm test
       - name: Test prompt 
-        run: echo "test has been executed This is Main Branch"
+        run: echo "test has been executed This is Deployment-config branch"
       
 
   DeployDev:

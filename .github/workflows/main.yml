@@ -19,7 +19,7 @@ on:
 
   workflow_dispatch:
     inputs:
-      target_env:
+      target_environment:
         description: 'Target environment'
         required: true
         type: choice
@@ -91,7 +91,7 @@ jobs:
 
   DeploySIT:
     name: Deploy to SIT Environment
-    if: github.event.ref == 'refs/heads/DEV'
+    if: ${{ github.event.ref == 'refs/heads/main' && github.event.inputs.target_environment == 'SIT - TestFlight' }}
     needs: sonarcloud
     runs-on: ubuntu-latest
     environment:

@@ -19,6 +19,9 @@ on:
         options:
           - 'Regov'
           - 'KIB'
+  push:
+    branches:
+      - main
   
 
 jobs:
@@ -61,7 +64,7 @@ jobs:
 
   DeploySIT:
     name: Deploy to SIT Environment
-    if: github.event_name =='workflow_dispatch'
+    if: ${{github.event_name =='workflow_dispatch' && github.head_ref == 'main'}}
     needs: [build-and-test]
     runs-on: ubuntu-latest
     environment:

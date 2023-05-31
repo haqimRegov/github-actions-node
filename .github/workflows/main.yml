@@ -11,6 +11,17 @@ on:
           - 'Firebase'
           - 'TestFlight'
           - 'App Store'
+      env:
+        description: 'Environmets'
+        default: "SIT"
+        type: choice
+        required: false
+        options:
+          - 'SIT'
+          - 'UAT'
+          - 'Staging'
+          - 'Production'
+        
       credential:
         description: 'Credential'
         default: "Regov"
@@ -64,7 +75,7 @@ jobs:
 
   DeploySIT:
     name: Deploy to SIT Environment
-    if: ${{github.event_name =='push' && github.head_ref == 'main'}}
+    if: ${{github.head_ref == 'main'}}
     needs: [build-and-test]
     runs-on: ubuntu-latest
     environment:
@@ -72,11 +83,16 @@ jobs:
       url: "http://SIT.Reach.com"
     steps:
       - name: Prompt for Target Environment
-        id: prompt
-        if: ${{ github.event_name == 'workflow_dispatch' }}
+        if: ${{ github.event.inputs.env == 'SIT'}}
         run: |
-          echo "Deployment platform: ${{ github.event.inputs.deployment_platform }}"
-          echo "Credential: ${{ github.event.inputs.credential }}"
+          echo "Deploying to SIT"
+    
+      - name: Prompt for Target Environment
+        if: ${{ github.event.inputs.env == 'UAT'}}
+        run: |
+          echo "Deploying to UAT"
+      
+
       - name: Deploy
         run: echo "Deploying to SIT Environment"
         #This is where the deployment phase should be coded
